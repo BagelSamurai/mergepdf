@@ -1,0 +1,16 @@
+{
+  "name": "mergepdf",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "landing"
+  ],
+  "scripts": {
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:landing": "npm run dev --workspace=landing",
+    "build:frontend": "npm run build --workspace=frontend",
+    "build:landing": "npm run build --workspace=landing",
+    "build:all": "npm run build --workspaces --if-present",
+    "lint:all": "npm run lint --workspaces --if-present"
+  }
+}

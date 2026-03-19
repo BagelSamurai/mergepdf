@@ -1,0 +1,35 @@
+# Python
+.venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+*.egg-info/
+**/*.egg-info/
+.coverage
+htmlcov/
+.pytest_cache/
+dist/
+build/
+desktop/dist/
+desktop/build/
+
+# Node
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+out/
+**/out/
+
+# Env / secrets
+.env
+**/.env
+.env.local
+**/.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
