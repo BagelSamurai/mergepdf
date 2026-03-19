@@ -134,15 +134,14 @@ export default function Home() {
       </section>
 
       {/* ── App screenshot placeholder ── */}
+      {/* ── App screenshot ── */}
       <section className="pb-24 px-6">
-        <div
-          className="max-w-2xl mx-auto bg-slate-50 border border-slate-200
-                        rounded-2xl h-80 flex items-center justify-center"
-        >
-          <div className="text-center">
-            <div className="text-5xl mb-3">🖥️</div>
-            <p className="text-slate-400 text-sm">App screenshot</p>
-          </div>
+        <div className="max-w-2xl mx-auto">
+          <img
+            src="/screenshot.png"
+            alt="MergePDF app screenshot"
+            className="w-full rounded-2xl border border-slate-200 shadow-lg"
+          />
         </div>
       </section>
 
