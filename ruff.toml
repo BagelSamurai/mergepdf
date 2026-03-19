@@ -1,0 +1,6 @@
+[lint]
+select = ["E", "F", "W"]   # errors, undefined names, warnings
+ignore = ["E501"]           # ignore line-too-long (common in GUI code)
+
+[lint.per-file-ignores]
+"tests/*" = ["F811"]        # allow redefining fixtures in tests

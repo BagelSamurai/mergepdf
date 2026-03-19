@@ -1,0 +1,68 @@
+name: Release
+
+# Only runs when you push a tag like v1.0.0
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build-windows:
+    name: Build Windows .exe
+    runs-on: windows-latest
+
+    steps:
+      # 1. Check out code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      # 3. Install dependencies + PyInstaller
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e shared/
+          pip install pyinstaller
+
+      # 4. Run tests — don't ship broken code
+      - name: Run tests
+        run: pytest tests/ -v
+
+      # 5. Build the .exe with PyInstaller
+      # --onefile = single .exe, no folder of dependencies
+      # --windowed = no terminal window when user opens it
+      # --name = output filename
+      - name: Build executable
+        run: |
+          pyinstaller `
+            --onefile `
+            --windowed `
+            --name MergePDF `
+            --add-data "shared/mergepdf_shared;mergepdf_shared" `
+            desktop/app.py
+
+      # 6. Create GitHub Release and upload the .exe
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "MergePDF ${{ github.ref_name }}"
+          body: |
+            ## MergePDF ${{ github.ref_name }}
+
+            ### Download
+            - **MergePDF.exe** — Windows 10/11, no install required
+
+            ### What's new
+            See commit history for changes.
+          files: dist/MergePDF.exe
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
